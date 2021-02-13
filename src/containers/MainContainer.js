@@ -1,37 +1,127 @@
 import React from 'react'
 import Login from '../components/Login'
-import {Route} from 'react-router-dom'
+import {Route, withRouter} from 'react-router-dom'
 import WineContainer from '../containers/WineContainer'
+import Home from '../components/Home'
+import Nav from '../components/Nav'
 
 
+const API = "http://localhost:3000";
 
-export default class MainContainer extends React.Component {
+class MainContainer extends React.Component {
 
-  state = {
-    wines: [] 
-  }
-
-  componentDidMount() {
-    this.getWines()
-  }
-
-  getWines = () => {
-    fetch('http://localhost:3000/wines/5000')
-    .then(resp => resp.json())
-    .then(wines => this.setState({
-      wines: wines
-    }))
-  }
+    state = {
+      wines: [],
+      user: {},
+      error: false,
+    };
   
+    componentDidMount() {
+      const token = localStorage.token;
+      if (token) {
+        this.persistUser(token);
+      }
+    }
+  
+    persistUser = (token) => {
+      fetch(API + "/persist", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((resp) => resp.json())
+        .then((data) => {
+          if (data.username) {
+            const { username, id } = data;
+            this.setState({
+              user: {
+                username,
+                id,
+              },
+            });
+          }
+        });
+    };
+  
+    handleAuthResponse = (data) => {
+      if (data.username) {
+        const { username, id, token } = data;
+  
+        this.setState({
+          user: {
+            username,
+            id,
+          },
+          error: null,
+        });
+  
+        localStorage.setItem("token", token);
+        this.props.history.push("/")
+      } else if (data.error) {
+        this.setState({
+          error: data.error
+        });
+      }
+    };
+  
+    handleLogin = (e, userInfo) => {
+      e.preventDefault();
+  
+      fetch(API + "/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userInfo),
+      })
+        .then((resp) => resp.json())
+        .then((data) => this.handleAuthResponse(data))
+        .catch(console.log);
+    };
+  
+    handleSignup = (e, userInfo) => {
+      e.preventDefault();
+  
+      fetch(API + "/sign_up", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ user: userInfo }),
+      })
+        .then((resp) => resp.json())
+        .then((data) => {
+          this.handleAuthResponse(data);
+        })
+        .catch(console.log);
+    };
+  
+    handleLogout = () => {
+      localStorage.clear();
+      this.setState({ user: {} });
+    };
+  
+    renderLoginPage = () => <Login handleLoginOrSignup={this.handleLogin} />;
+    renderSignUpPage = () => <Login handleLoginOrSignup={this.handleSignup} />;
+    renderHomePage = () => <Home username={this.state.user.username} />
+        
   render() {
+    const {user, error, wines} = this.state
+    console.log(wines)
    return (
     <div>
-    <Route exact path="/login" component={Login} />,
-    <Route exact path="/wine" render={() => { 
-      return <WineContainer wines={this.state.wines} />
-      }
-    } />
+    <Nav user={user} handleLogout={this.handleLogout} />
+    {!!error && <h1>{error}</h1>}
+
+    <Route path="/login" component={this.renderLoginPage} />
+    <Route path="/signup" render={this.renderSignUpPage} />
+
+    <Route exact path="/" render={this.renderHomePage} />
+    <Route exact path="/wine" component={WineContainer} />
     </div>
    )
   } 
 }
+
+export default withRouter(MainContainer)
