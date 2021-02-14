@@ -24,7 +24,7 @@ const Nav = ({ user, handleLogout }) => {
               </NavLink>
             </li>
             <li>
-              <NavLink to="/wine">All Wine</NavLink>
+              <NavLink to="/variety">All Varieties</NavLink>
             </li>
             <li>
               <button onClick={handleLogout}>Logout</button>

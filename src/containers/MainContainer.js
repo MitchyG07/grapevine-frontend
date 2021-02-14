@@ -1,9 +1,8 @@
 import React from 'react'
 import Login from '../components/Login'
 import {Route, withRouter} from 'react-router-dom'
-import WineContainer from '../containers/WineContainer'
-import Home from '../components/Home'
 import Nav from '../components/Nav'
+import VarietyContainer from '../containers/VarietyContainer'
 
 
 const API = "http://localhost:3000";
@@ -104,11 +103,9 @@ class MainContainer extends React.Component {
   
     renderLoginPage = () => <Login handleLoginOrSignup={this.handleLogin} />;
     renderSignUpPage = () => <Login handleLoginOrSignup={this.handleSignup} />;
-    renderHomePage = () => <Home username={this.state.user.username} />
         
   render() {
     const {user, error, wines} = this.state
-    console.log(wines)
    return (
     <div>
     <Nav user={user} handleLogout={this.handleLogout} />
@@ -117,8 +114,7 @@ class MainContainer extends React.Component {
     <Route path="/login" component={this.renderLoginPage} />
     <Route path="/signup" render={this.renderSignUpPage} />
 
-    <Route exact path="/" render={this.renderHomePage} />
-    <Route exact path="/wine" component={WineContainer} />
+    <Route exact path="/variety" component={VarietyContainer} />
     </div>
    )
   } 
