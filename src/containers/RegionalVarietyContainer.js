@@ -48,13 +48,24 @@ class RegionalVarietyContainer extends Component {
         this.setState(prevState => {
             return {currentPage: prevState.currentPage - 1}
         })} }
+
+      filterWines = (e) => {
+        e.preventDefault()
+        console.log(e.target.children[0].value)  
+        this.setState(prevState => { 
+              return { data: prevState.data.filter(wines => wines.title.includes(e.target.children[0].value)) } 
+         } )  
+      }
     
 
     render(){ 
         const {pageSize, currentPage} = this.state
         return(
           
-            <div>
+            <div><br></br>
+                <form onSubmit={(e) => this.filterWines(e)}> 
+                <input name='filter-wine' placeholder='...search'></input><Button type='submit' value='Submit' variant='outline-dark'>Search</Button>
+                </form>
                 {this.state.data.slice(currentPage * pageSize, (currentPage + 1) * pageSize)
                 .map(rv  => <RegionalVariety wine={rv} ten={this.showTen} key={rv.id} selectedWine={this.props.selectedWine}  />) }
                 <Button variant='outline-dark' onClick={() => this.previousTen()}>Previous Page</Button>  
