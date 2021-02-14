@@ -5,6 +5,8 @@ import Wine from '../components/Wine'
 import Home from '../components/Home'
 import Nav from '../components/Nav'
 import RegionalVarietyContainer from '../containers/RegionalVarietyContainer'
+import Nav from '../components/Nav'
+import VarietyContainer from '../containers/VarietyContainer'
 
 
 const API = "http://localhost:3000";
@@ -113,11 +115,9 @@ class MainContainer extends React.Component {
   
     renderLoginPage = () => <Login handleLoginOrSignup={this.handleLogin} />;
     renderSignUpPage = () => <Login handleLoginOrSignup={this.handleSignup} />;
-    renderHomePage = () => <Home username={this.state.user.username} />
         
   render() {
     const {user, error, wines} = this.state
-    console.log(wines)
    return (
     <div>
     <Nav user={user} handleLogout={this.handleLogout} />
@@ -132,6 +132,7 @@ class MainContainer extends React.Component {
     <Route exact path="/regionalvariety" render={() => { 
         return <RegionalVarietyContainer selectedWine={this.changeSelected} /> }} />  
 
+    <Route exact path="/variety" component={VarietyContainer} />
     </div>
    )
   } 

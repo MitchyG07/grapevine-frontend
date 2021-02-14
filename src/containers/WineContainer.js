@@ -3,14 +3,13 @@ import Wine from '../components/Wine'
 
 class WineContainer extends Component {
 
-   
-
-    render(){
-        return (
-            <Wine />
+    render(){ 
+        return(
+            <div>
+                {<Wine />}
+            </div>
         )
     }
-
-}
+}     
 
 export default WineContainer
