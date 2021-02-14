@@ -1,9 +1,10 @@
 import React from 'react'
 import Login from '../components/Login'
 import {Route, withRouter} from 'react-router-dom'
-import WineContainer from '../containers/WineContainer'
+import Wine from '../components/Wine'
 import Home from '../components/Home'
 import Nav from '../components/Nav'
+import RegionalVarietyContainer from '../containers/RegionalVarietyContainer'
 
 
 const API = "http://localhost:3000";
@@ -11,7 +12,7 @@ const API = "http://localhost:3000";
 class MainContainer extends React.Component {
 
     state = {
-      wines: [],
+      selectedWine: '',
       user: {},
       error: false,
     };
@@ -22,6 +23,8 @@ class MainContainer extends React.Component {
         this.persistUser(token);
       }
     }
+
+   
   
     persistUser = (token) => {
       fetch(API + "/persist", {
@@ -101,6 +104,12 @@ class MainContainer extends React.Component {
       localStorage.clear();
       this.setState({ user: {} });
     };
+
+    changeSelected = (wine) => {
+        this.setState({
+            selectedWine: wine
+        })
+    }
   
     renderLoginPage = () => <Login handleLoginOrSignup={this.handleLogin} />;
     renderSignUpPage = () => <Login handleLoginOrSignup={this.handleSignup} />;
@@ -118,7 +127,11 @@ class MainContainer extends React.Component {
     <Route path="/signup" render={this.renderSignUpPage} />
 
     <Route exact path="/" render={this.renderHomePage} />
-    <Route exact path="/wine" component={WineContainer} />
+    <Route exact path="/wine" render={() => { 
+        return <Wine wine={this.state.selectedWine} /> }} /> 
+    <Route exact path="/regionalvariety" render={() => { 
+        return <RegionalVarietyContainer selectedWine={this.changeSelected} /> }} />  
+
     </div>
    )
   } 
