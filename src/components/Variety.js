@@ -3,13 +3,13 @@ import React from 'react'
 const Variety = (props) => {
 
     return(
-        
+
     <div>
-        <div class="reds_column" >
+        <div class="redWine" >
             <div>{props.red}</div>
         </div>
         <br/> 
-        <div class="whites_column">
+        <div class="redWine">
             <div>{props.white}</div>
         </div>
         
