@@ -32,25 +32,25 @@ class VarietyContainer extends Component {
     country: ''
     }
 
-    componentDidMount() {
-        this.getWines()
-    }
+    // componentDidMount() {
+    //     this.getWines()
+    // }
 
-    getWines = () => {
-        const token = localStorage.token;
-        fetch("http://localhost:3000/wines/5000", {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            }
-        })
-        .then(resp => resp.json())
-        .then(data => this.setState({
-          wines: data
-        }))
-      }
+    // getWines = () => {
+    //     const token = localStorage.token;
+    //     fetch("http://localhost:3000/wines/5000", {
+    //         headers: {
+    //             Authorization: `Bearer ${token}`,
+    //         }
+    //     })
+    //     .then(resp => resp.json())
+    //     .then(data => this.setState({
+    //       wines: data
+    //     }))
+    //   }
 
     render(){ 
-        console.log(this.state)
+        // console.log(this.state)
         const {redVarieties, whiteVarieties, country} = this.state 
         const data =
         [
@@ -72,7 +72,7 @@ class VarietyContainer extends Component {
                     <WorldMap color="green" title="Map" value-suffix="people" size="lg" data={data} />
                 </div>
                 <div className="redColumn">
-                    {redVarieties.map(red => <Variety red={red} />)}
+                    {redVarieties.map(red => <Variety red={red} getVariety={this.props.getVariety}/>)}
                 </div>
                 <div>
                     {whiteVarieties.map(white => <Variety white={white} />)}

@@ -13,8 +13,23 @@
   }
 }
 
+.body {
+  font-family: 'Bree Serif', serif;
+  color: black;
+}
+
+.left{
+  position: absolute;
+  left: 25px;
+}
+
+.color-nav{
+  background-color: rgb(148, 110, 192);
+  font-family: 'Pacifico', cursive; 
+}
+
 .App-header {
-  background-color: #282c34;
+  background-color: #353e4e;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -23,6 +38,8 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+
+
 
 .App-link {
   color: #61dafb;

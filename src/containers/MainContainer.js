@@ -1,8 +1,11 @@
 import React from 'react'
 import Login from '../components/Login'
 import {Route, withRouter} from 'react-router-dom'
-import Nav from '../components/Nav'
-import VarietyContainer from '../containers/VarietyContainer'
+import Wine from '../components/Wine'
+import Home from '../components/Home'
+import Navi from '../components/Navi'
+import RegionalVarietyContainer from '../containers/RegionalVarietyContainer'
+import VarietyContainer from './VarietyContainer'
 
 
 const API = "http://localhost:3000";
@@ -10,8 +13,9 @@ const API = "http://localhost:3000";
 class MainContainer extends React.Component {
 
     state = {
-      wines: [],
+      selectedWine: {},
       user: {},
+      variety: '',
       error: false,
     };
   
@@ -21,7 +25,7 @@ class MainContainer extends React.Component {
         this.persistUser(token);
       }
     }
-  
+
     persistUser = (token) => {
       fetch(API + "/persist", {
         method: "GET",
@@ -46,7 +50,6 @@ class MainContainer extends React.Component {
     handleAuthResponse = (data) => {
       if (data.username) {
         const { username, id, token } = data;
-  
         this.setState({
           user: {
             username,
@@ -54,8 +57,8 @@ class MainContainer extends React.Component {
           },
           error: null,
         });
-  
         localStorage.setItem("token", token);
+        // this.getWines()
         this.props.history.push("/")
       } else if (data.error) {
         this.setState({
@@ -100,7 +103,21 @@ class MainContainer extends React.Component {
       localStorage.clear();
       this.setState({ user: {} });
     };
-  
+
+    changeSelected = (wine) => {
+ 
+      this.setState({
+            selectedWine: wine
+        })
+    }
+
+    variety = (variety) => {
+
+      this.setState({
+        
+        variety:  variety
+      })
+    }
     renderLoginPage = () => <Login handleLoginOrSignup={this.handleLogin} />;
     renderSignUpPage = () => <Login handleLoginOrSignup={this.handleSignup} />;
         
@@ -108,13 +125,20 @@ class MainContainer extends React.Component {
     const {user, error, wines} = this.state
    return (
     <div>
-    <Nav user={user} handleLogout={this.handleLogout} />
+    <Navi user={user} handleLogout={this.handleLogout} />
     {!!error && <h1>{error}</h1>}
 
     <Route path="/login" component={this.renderLoginPage} />
     <Route path="/signup" render={this.renderSignUpPage} />
 
-    <Route exact path="/variety" component={VarietyContainer} />
+    <Route exact path="/" render={this.renderHomePage} />
+    <Route exact path="/wine" render={() => { 
+        return <Wine wine={this.state.selectedWine} user={this.state.user} /> }} /> 
+    <Route exact path="/regionalvariety" render={() => { 
+        return <RegionalVarietyContainer selectedWine={this.changeSelected} variety={this.state.variety} wines={this.state.wines} /> }} />  
+
+    <Route exact path="/variety" render={() => { 
+      return <VarietyContainer  getVariety={this.variety} /> }} />
     </div>
    )
   } 

@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {Button} from 'react-bootstrap'
 
 class Login extends Component{
 
@@ -18,9 +19,9 @@ class Login extends Component{
   render() {
     return(
         
-      <div className="Login">
+      <div className="Login body left" >
         <form onSubmit={(e) => this.props.handleLoginOrSignup(e, this.state)}>
-          <label>Username</label>
+          <label>Username</label> <br></br>
           <input
             type="text"
             name="username"
@@ -28,15 +29,15 @@ class Login extends Component{
             onChange={this.handleChange}
           />
           <br />
-          <label>Password</label>
+          <label>Password</label><br></br>
           <input
             type="password"
             name="password"
             value={this.state.password}
             onChange={this.handleChange}
           />
-          <br />
-          <input type="submit" value="Submit" />
+          <br /><br></br>
+          <input class='btn btn-outline-dark btn-lg' variant='outline-dark' type="submit" value="Submit" ></input>
         </form>
       </div>
 
