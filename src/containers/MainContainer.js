@@ -111,13 +111,13 @@ class MainContainer extends React.Component {
         })
     }
 
-    variety = (variety) => {
+    // variety = (variety) => {
 
-      this.setState({
+    //   this.setState({
         
-        variety:  variety
-      })
-    }
+    //     variety:  variety
+    //   })
+    // }
     renderLoginPage = () => <Login handleLoginOrSignup={this.handleLogin} />;
     renderSignUpPage = () => <Login handleLoginOrSignup={this.handleSignup} />;
         
@@ -138,7 +138,8 @@ class MainContainer extends React.Component {
         return <RegionalVarietyContainer selectedWine={this.changeSelected} variety={this.state.variety} wines={this.state.wines} /> }} />  
 
     <Route exact path="/variety" render={() => { 
-      return <VarietyContainer  getVariety={this.variety} /> }} />
+      return <VarietyContainer   /> }} />
+      {/* getVariety={this.variety} */}
     </div>
    )
   } 

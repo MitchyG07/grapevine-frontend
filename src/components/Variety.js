@@ -3,17 +3,19 @@ import { Link } from 'react-router-dom';
 
 const Variety = (props) => {
 
-
-
     return(
-        
+
     <div>
         <div class="reds_column" >
-            <div  onClick={() =>  props.getVariety(props.red)} ><Link className='body' to='/regionalvariety'> {props.red}</Link></div> 
+            <div  onClick={() =>  props.selectedVariety(props.red)} >
+                {props.red}
+            </div> 
         </div>
         <br/> 
-        <div class="whites_column">
-            <div>{props.white}</div>
+        <div class="redWine">
+            <div onClick={() =>  props.selectedVariety(props.white)} >
+                {props.white}
+            </div>
         </div>
         
     </div>
