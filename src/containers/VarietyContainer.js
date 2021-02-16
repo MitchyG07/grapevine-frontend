@@ -29,53 +29,66 @@ class VarietyContainer extends Component {
         'Gruner Veltliner',
         'Torrontes'
     ],
-    country: ''
+    country: '', 
+    wines: [], 
+    data: [],
+    selectedVariety: '',
+    selectedCountry: '',
     }
 
-    // componentDidMount() {
-    //     this.getWines()
-    // }
 
-    // getWines = () => {
-    //     const token = localStorage.token;
-    //     fetch("http://localhost:3000/wines/5000", {
-    //         headers: {
-    //             Authorization: `Bearer ${token}`,
-    //         }
-    //     })
-    //     .then(resp => resp.json())
-    //     .then(data => this.setState({
-    //       wines: data
-    //     }))
-    //   }
+    componentDidMount() {
+        this.getVarietyCount()
+    }
+
+    getVarietyCount = () => {
+        const token = localStorage.token;
+        fetch("http://localhost:3000/varietal_count", {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        })
+        .then(resp => resp.json())
+        .then(data => this.setState({
+          wines: data
+        }))
+      }
+
+      selectedVariety = (variety) => {
+        this.setState({
+            selectedVariety: variety
+        })
+        this.getVarietalData(variety)
+      }
+
+    getVarietalData = (variety) => {
+        let data = this.state.wines.find(wine => wine.varietal === variety)
+        this.setState({
+            data: data.isoCodes
+        })
+    }
+
+    clickAction = (countryName) => {
+        this.setState({
+            selectedCountry: countryName
+        })
+    }
 
     render(){ 
-        // console.log(this.state)
-        const {redVarieties, whiteVarieties, country} = this.state 
-        const data =
-        [
-          { country: "cn", value: 1389618778 }, // china
-          { country: "in", value: 1311559204 }, // india
-          { country: "us", value: 331883986 },  // united states
-          { country: "id", value: 264935824 },  // indonesia
-          { country: "pk", value: 210797836 },  // pakistan
-          { country: "br", value: 210301591 },  // brazil
-          { country: "ng", value: 208679114 },  // nigeria
-          { country: "bd", value: 161062905 },  // bangladesh
-          { country: "ru", value: 141944641 },  // russia
-          { country: "mx", value: 127318112 }   // mexico
-        ]
+        console.log(this.state)
 
+        const {redVarieties, whiteVarieties, country} = this.state 
+        
         return(
             <div>
                 <div className="worldMap">
-                    <WorldMap color="green" title="Map" value-suffix="people" size="lg" data={data} />
+                    <WorldMap onClick={() => this.clickAction} color="red" title="GrapeVine Map" value-suffix="people" size="lg" data={this.state.data} /> 
                 </div>
                 <div className="redColumn">
-                    {redVarieties.map(red => <Variety red={red} getVariety={this.props.getVariety}/>)}
+                    {redVarieties.map(red => <Variety red={red} selectedVariety={this.selectedVariety}/>)}
                 </div>
                 <div>
-                    {whiteVarieties.map(white => <Variety white={white} />)}
+                    {whiteVarieties.map(white => <Variety white={white} selectedVariety={this.selectedVariety}/>)}
                 </div>
             </div>
         )
