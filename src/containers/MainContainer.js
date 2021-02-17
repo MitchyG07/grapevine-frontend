@@ -38,7 +38,7 @@ class MainContainer extends React.Component {
         .then((resp) => resp.json())
         .then((data) => {
           if (data.username) {
-            const { username, id, bio } = data;
+            const { username, id, bio, wines } = data;
             this.setState({
               user: {
                 username,

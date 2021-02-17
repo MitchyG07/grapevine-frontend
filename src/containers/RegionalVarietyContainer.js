@@ -6,7 +6,7 @@ class RegionalVarietyContainer extends Component {
 
     state = {
         data: [],
-        currentPage: 1,
+        currentPage: 0,
         pageSize: 10,
         variety: ''
     }
@@ -61,7 +61,7 @@ class RegionalVarietyContainer extends Component {
                 .map(rv  => <RegionalVariety wine={rv} ten={this.showTen} key={rv.id} selectedWine={this.props.selectedWine}  />) }
                 <Button variant='outline-dark' onClick={() => this.previousTen()}>Previous Page</Button>  
                 <Button variant='outline-dark' onClick={() => this.showTen()}>Next Page</Button><br></br>
-                <a className='left body'>Page: {this.state.currentPage}</a>       
+                <a className='left body'>Page: {this.state.currentPage + 1}</a>       
             </div>
      
      
