@@ -12,22 +12,13 @@ class RegionalVarietyContainer extends Component {
     }
 
     componentDidMount(){
-        this.variety()
+        this.getVariety()
     }
-
-    variety = () => {
-        console.log(this.state.variety)
-        this.setState({
-            variety: this.props.variety
-        })
-        this.getVariety(this.props.variety)
-    }
-
      
-    getVariety = (variety) =>  {
+    getVariety = () =>  {
     
       const token = localStorage.token;
-      fetch(`http://localhost:3000/wines/${variety}`, {
+      fetch(`http://localhost:3000/wines/${this.props.variety}/${this.props.country}`, {
           headers: {
               Authorization: `Bearer ${token}`
           }

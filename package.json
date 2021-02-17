@@ -14,6 +14,7 @@
     "react": "^17.0.1",
     "react-bootstrap": "^1.4.3",
     "react-dom": "^17.0.1",
+    "react-icons": "^4.2.0",
     "react-infinite-scroll-component": "^6.0.0",
     "react-paginate": "^7.1.0",
     "react-router-dom": "^5.2.0",
@@ -45,5 +46,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "typescript": "^4.1.5"
   }
 }

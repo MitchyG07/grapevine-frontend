@@ -16,7 +16,8 @@ class MainContainer extends React.Component {
       selectedWine: {},
       user: {},
       variety: '',
-      error: false,
+      country: '',
+      error: false
     };
   
     componentDidMount() {
@@ -111,18 +112,24 @@ class MainContainer extends React.Component {
         })
     }
 
-    // variety = (variety) => {
+    country = (country) => {
+      this.setState({
+        country: country
+      })
+    }
 
-    //   this.setState({
-        
-    //     variety:  variety
-    //   })
-    // }
+    variety = (variety) => {
+      this.setState({
+        variety: variety
+      })
+    }
+
     renderLoginPage = () => <Login handleLoginOrSignup={this.handleLogin} />;
     renderSignUpPage = () => <Login handleLoginOrSignup={this.handleSignup} />;
         
   render() {
-    const {user, error, wines} = this.state
+    console.log(this.state)
+    const {user, error, wines, variety} = this.state
    return (
     <div>
     <Navi user={user} handleLogout={this.handleLogout} />
@@ -135,10 +142,10 @@ class MainContainer extends React.Component {
     <Route exact path="/wine" render={() => { 
         return <Wine wine={this.state.selectedWine} user={this.state.user} /> }} /> 
     <Route exact path="/regionalvariety" render={() => { 
-        return <RegionalVarietyContainer selectedWine={this.changeSelected} variety={this.state.variety} wines={this.state.wines} /> }} />  
+        return <RegionalVarietyContainer user={this.state.user} selectedWine={this.changeSelected} variety={this.state.variety} country={this.state.country} /> }} />  
 
     <Route exact path="/variety" render={() => { 
-      return <VarietyContainer   /> }} />
+      return <VarietyContainer getCountry={this.country} getVariety={this.variety}/> }} />
       {/* getVariety={this.variety} */}
     </div>
    )
