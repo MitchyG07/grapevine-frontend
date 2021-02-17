@@ -6,8 +6,41 @@ class Wine extends React.Component {
     
    state = {
        reviews: [], 
-       favorite: false
+       favorite: false,
+       userWines: []
    }
+
+   componentDidMount(){
+    this.getUser()
+    }   
+
+    getUser =  () => {
+        const token = localStorage.token;
+        let  configObj = {method: 'GET',  
+        headers: {Authorization:  `Bearer ${token}`}} 
+    fetch(`http://localhost:3000/users/${this.props.user.id}`, configObj) 
+        .then(resp  => resp.json())
+        .then(user => this.setUser(user))  
+    }
+
+   setUser = (user) => {
+    this.setState({
+       userWines: user.wines
+        })
+        this.checkFavorite()
+    }
+
+    checkFavorite = () => {
+      let  favorited = this.state.userWines.find(wine => wine.id === this.props.wine.id)
+      console.log(this.state.userWines[0].id)
+      favorited ? this.setState({
+          favorite: true
+      })
+      : this.setState({
+          favorite: false 
+      })
+    }
+   
     
     postReview = (e) => {
             e.preventDefault()
@@ -22,7 +55,7 @@ class Wine extends React.Component {
                .then(resp => resp.json())
                .then(review  => {this.postReviewedWine(review) })
              }
-    // then post to reviewed wine for joiner 
+    // then post to reviewed wine for joiner asdf
               
     postReviewedWine = (rw) => {
         this.setState(prevState => {
@@ -75,7 +108,7 @@ class Wine extends React.Component {
     }
     
     render() { 
-        console.log(this.props)
+        console.log(this.state)
     return(
         <div className='body'>
         <h1>Title: {this.props.wine.title}</h1>
