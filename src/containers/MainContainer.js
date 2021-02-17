@@ -6,6 +6,7 @@ import Home from '../components/Home'
 import Navi from '../components/Navi'
 import RegionalVarietyContainer from '../containers/RegionalVarietyContainer'
 import VarietyContainer from './VarietyContainer'
+import UserContainer from './UserContainer'
 
 
 const API = "http://localhost:3000";
@@ -36,11 +37,12 @@ class MainContainer extends React.Component {
         .then((resp) => resp.json())
         .then((data) => {
           if (data.username) {
-            const { username, id } = data;
+            const { username, id, bio } = data;
             this.setState({
               user: {
                 username,
                 id,
+                bio: ''
               },
             });
           }
@@ -58,7 +60,7 @@ class MainContainer extends React.Component {
           error: null,
         });
         localStorage.setItem("token", token);
-        // this.getWines()
+        localStorage.setItem("id", this.state.user.id)
         this.props.history.push("/")
       } else if (data.error) {
         this.setState({
@@ -118,6 +120,7 @@ class MainContainer extends React.Component {
     //     variety:  variety
     //   })
     // }
+
     renderLoginPage = () => <Login handleLoginOrSignup={this.handleLogin} />;
     renderSignUpPage = () => <Login handleLoginOrSignup={this.handleSignup} />;
         
@@ -140,6 +143,8 @@ class MainContainer extends React.Component {
     <Route exact path="/variety" render={() => { 
       return <VarietyContainer   /> }} />
       {/* getVariety={this.variety} */}
+      <Route exact path="/user" render={() => { 
+        return <UserContainer   user={this.state.user} /> }} />
     </div>
    )
   } 
