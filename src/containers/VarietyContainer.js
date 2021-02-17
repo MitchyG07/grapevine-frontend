@@ -1,6 +1,13 @@
 import React, {Component} from 'react'
 import Variety from '../components/Variety'
 import { WorldMap } from "react-svg-worldmap"
+import Country from '../components/Country'
+
+const URLS = [
+    "http://localhost:3000/varietal_count",
+    "http://localhost:3000/country_count"
+];
+
 
 class VarietyContainer extends Component {
 
@@ -19,7 +26,7 @@ class VarietyContainer extends Component {
     ],
     whiteVarieties: [
         'Chardonnay',
-        'Sauvignon blanc',
+        'Sauvignon Blanc',
         'Pinot Gris',
         'Riesling',
         'Pinot Noir',
@@ -29,66 +36,78 @@ class VarietyContainer extends Component {
         'Gruner Veltliner',
         'Torrontes'
     ],
-    country: '', 
+    countries: [], 
     wines: [], 
-    data: [],
-    selectedVariety: '',
+    data: [], 
+    country_data: [],
+    variety: '',
     selectedCountry: '',
     }
 
-
     componentDidMount() {
         this.getVarietyCount()
-    }
+    } 
 
     getVarietyCount = () => {
         const token = localStorage.token;
-        fetch("http://localhost:3000/varietal_count", {
+        const configObj ={
             headers: {
                 Authorization: `Bearer ${token}`,
             }
-        })
-        .then(resp => resp.json())
-        .then(data => this.setState({
-          wines: data
-        }))
+        }  
+        Promise.all(URLS.map(url => fetch(url, configObj)
+            .then(resp => resp.json())
+        ))
+            .then(data => {
+                console.log(data)
+                const data_iso = data[0]
+                const data_country = data[1]
+                this.setState({
+                    wines: data_iso, 
+                    countries: data_country
+            })
+         })
       }
-
-      selectedVariety = (variety) => {
+    
+    selectedVariety = (variety) => {
         this.setState({
-            selectedVariety: variety
+            variety: variety
         })
         this.getVarietalData(variety)
       }
 
     getVarietalData = (variety) => {
         let data = this.state.wines.find(wine => wine.varietal === variety)
+        let countries = this.state.countries.find(wine => wine.varietal === variety)
         this.setState({
-            data: data.isoCodes
-        })
-    }
-
-    clickAction = (countryName) => {
-        this.setState({
-            selectedCountry: countryName
+            data: data.isoCodes,
+            country_data: countries.countries
         })
     }
 
     render(){ 
         console.log(this.state)
 
-        const {redVarieties, whiteVarieties, country} = this.state 
+        const {redVarieties, whiteVarieties, country_data} = this.state 
+        const {getCountry, getVariety} = this.props
         
         return(
             <div>
                 <div className="worldMap">
-                    <WorldMap onClick={() => this.clickAction} color="red" title="GrapeVine Map" value-suffix="people" size="lg" data={this.state.data} /> 
+                    <WorldMap color="blue" title="GrapeVine Map" value-suffix="wines" size="xxl" data={this.state.data} /> 
                 </div>
                 <div className="redColumn">
-                    {redVarieties.map(red => <Variety red={red} selectedVariety={this.selectedVariety}/>)}
+                    {redVarieties.map(red => <Variety red={red} getVariety={getVariety} selectedVariety={this.selectedVariety}/>)}
                 </div>
                 <div>
                     {whiteVarieties.map(white => <Variety white={white} selectedVariety={this.selectedVariety}/>)}
+                </div>
+                <div>
+                    {
+                    country_data[1]
+                    ? country_data.map(country => <Country country={country} getCountry={getCountry} /> ) 
+                    : <div>Country map </div>
+                    }
                 </div>
             </div>
         )

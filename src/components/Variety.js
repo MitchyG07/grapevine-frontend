@@ -7,7 +7,7 @@ const Variety = (props) => {
 
     <div>
         <div class="reds_column" >
-            <div  onClick={() =>  props.selectedVariety(props.red)} >
+            <div  onClick={() => {props.getVariety(props.red); props.selectedVariety(props.red)}} >
                 {props.red}
             </div> 
         </div>
