@@ -7,13 +7,13 @@ const Variety = (props) => {
 
     <div>
         <div class="reds_column" >
-            <div  onClick={() => {props.getVariety(props.red); props.selectedVariety(props.red)}} >
+            <div  onClick={() => {props.getVarietyCount(props.red); props.getVariety(props.red) }} >
                 {props.red}
             </div> 
         </div>
         <br/> 
         <div class="redWine">
-            <div onClick={() =>  props.selectedVariety(props.white)} >
+            <div onClick={() =>  {props.getVarietyCount(props.white); props.getVariety(props.white)}} >
                 {props.white}
             </div>
         </div>
