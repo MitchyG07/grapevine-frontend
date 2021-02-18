@@ -7,6 +7,7 @@ import Navi from '../components/Navi'
 import RegionalVarietyContainer from '../containers/RegionalVarietyContainer'
 import VarietyContainer from './VarietyContainer'
 import UserContainer from './UserContainer'
+import {Jumbotron} from 'react-bootstrap'
 
 
 const API = "http://localhost:3000";
@@ -131,11 +132,11 @@ class MainContainer extends React.Component {
   render() {
     console.log(this.state)
     const {user, error, wines, variety} = this.state
-   return (
+   return ( 
     <div>
+    <main className="background">
     <Navi user={user} handleLogout={this.handleLogout} />
     {!!error && <h1>{error}</h1>}
-
     <Route path="/login" component={this.renderLoginPage} />
     <Route path="/signup" render={this.renderSignUpPage} />
 
@@ -149,7 +150,8 @@ class MainContainer extends React.Component {
       return <VarietyContainer getCountry={this.country} getVariety={this.variety}/> }} />
       {/* getVariety={this.variety} */}
       <Route exact path="/user" render={() => { 
-        return <UserContainer   selectedWine={this.changeSelected} user={this.state.user} /> }} />
+        return <UserContainer   selectedWine={this.changeSelected} user={this.state.user} /> }} /> 
+    </main> 
     </div>
    )
   } 

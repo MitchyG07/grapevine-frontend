@@ -93,10 +93,18 @@ class VarietyContainer extends Component {
         const {getCountry, getVariety} = this.props
         
         return(
+<<<<<<< HEAD
            
             <Container fluid='true'>
                 <Row> 
                 <Col className="redColumn">
+=======
+            <div>
+                <div className="worldMap">
+                    <WorldMap color="blue" backgroundColor="#cc1c8e4"title="GrapeVine Map" value-suffix="wines" size="xl" data={this.state.data} /> 
+                </div>
+                <div className="redColumn">
+>>>>>>> finishing-wine-show
                     {redVarieties.map(red => <Variety red={red} getVariety={getVariety} selectedVariety={this.selectedVariety}/>)}
                 </Col>
                 <Col xs={7} className="worldMap">
