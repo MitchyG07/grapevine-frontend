@@ -22,6 +22,13 @@
   color: white;
 }
 
+.regional-container{
+  
+    position: relative;
+    left: 25px;
+    top: 10px;
+}
+
 .left{
   position: absolute;
   left: 25px;

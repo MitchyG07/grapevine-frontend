@@ -1,6 +1,7 @@
 import React, {Fragment, Component, useState} from 'react'
 import RegionalVariety from '../components/RegionalVariety.js'
-import {Button} from "react-bootstrap"
+import {Button, Container, Row, Image} from "react-bootstrap"
+// import Grape from './grape.png'
 
 class RegionalVarietyContainer extends Component {
 
@@ -42,6 +43,7 @@ class RegionalVarietyContainer extends Component {
 
       filterWines = (e) => {
         e.preventDefault()
+        // debugger
         console.log(e.target.children[0].value)  
         this.setState(prevState => { 
               return { data: prevState.data.filter(wines => wines.title.includes(e.target.children[0].value)) } 
@@ -53,16 +55,23 @@ class RegionalVarietyContainer extends Component {
         const {pageSize, currentPage} = this.state
         return(
           
-            <div><br></br>
+            <Container className='regional-container' fluid='true'>
+                <Row> 
                 <form onSubmit={(e) => this.filterWines(e)}> 
-                <input name='filter-wine' placeholder='...search'></input><Button type='submit' value='Submit' variant='outline-dark'>Search</Button>
+                <input name='filter-wine' placeholder='...search'></input>
+                <Button className='p-2' type='submit' value='Submit' variant='outline-dark'>Search</Button>
+          
+                <Button variant='outline-dark' onClick={() => this.getVariety()}>Reset</Button>
                 </form>
+                </Row>
+                {/* <Grape></Grape> */}
                 {this.state.data.slice(currentPage * pageSize, (currentPage + 1) * pageSize)
                 .map(rv  => <RegionalVariety wine={rv} ten={this.showTen} key={rv.id} selectedWine={this.props.selectedWine}  />) }
                 <Button variant='outline-dark' onClick={() => this.previousTen()}>Previous Page</Button>  
                 <Button variant='outline-dark' onClick={() => this.showTen()}>Next Page</Button><br></br>
-                <a className='left body'>Page: {this.state.currentPage + 1}</a>       
-            </div>
+                <a className='left body'>Page: {this.state.currentPage + 1}</a>  
+              
+            </Container>
      
      
         )
