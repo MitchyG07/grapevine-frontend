@@ -7,7 +7,9 @@ class Wine extends React.Component {
    state = {
        reviews: [], 
        favorite: false,
-       userWines: []
+       userWines: [],
+       userFavorites: [],
+       id: 0
    }
 
    componentDidMount(){
@@ -25,14 +27,14 @@ class Wine extends React.Component {
 
    setUser = (user) => {
     this.setState({
-       userWines: user.wines
+       userWines: user.wines,
+       userFavorites: user.favorites
         })
         this.checkFavorite()
     }
 
     checkFavorite = () => {
-      let  favorited = this.state.userWines.find(wine => wine.id === this.props.wine.id)
-      console.log(this.state.userWines[0].id)
+      let favorited = this.state.userWines.find(wine => wine.id === this.props.wine.id)
       favorited ? this.setState({
           favorite: true
       })
@@ -55,7 +57,7 @@ class Wine extends React.Component {
                .then(resp => resp.json())
                .then(review  => {this.postReviewedWine(review) })
              }
-    // then post to reviewed wine for joiner asdf
+
               
     postReviewedWine = (rw) => {
         this.setState(prevState => {
@@ -98,13 +100,18 @@ class Wine extends React.Component {
         }
         fetch('http://localhost:3000/favorites', configObj)
         .then(resp => resp.json())
-        .then(data => console.log(data))
+        .then(data => this.setState({
+            userFavorites: [...this.state.userFavorites, data]
+        }))
     }
 
     deleteFavorite = () => {
-        fetch('http://localhost:3000/favorites', {method: 'DELETE'})
-        .then(resp => resp.json())
-        .then(data => console.log(data))
+        const token = localStorage.token
+        let getFavorite = this.state.userFavorites.find(f => this.props.wine.id === f.wine_id)
+        let id = getFavorite.id
+        fetch(`http://localhost:3000/favorites/${id}`,{method: 'DELETE', headers:{Authorization: `Bearer ${token}`}})
+            .then(resp => resp.json())
+            .then(console.log) 
     }
     
     render() { 

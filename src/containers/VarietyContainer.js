@@ -94,7 +94,7 @@ class VarietyContainer extends Component {
         return(
             <div>
                 <div className="worldMap">
-                    <WorldMap color="blue" title="GrapeVine Map" value-suffix="wines" size="xxl" data={this.state.data} /> 
+                    <WorldMap color="blue" backgroundColor="#cc1c8e4"title="GrapeVine Map" value-suffix="wines" size="xl" data={this.state.data} /> 
                 </div>
                 <div className="redColumn">
                     {redVarieties.map(red => <Variety red={red} getVariety={getVariety} selectedVariety={this.selectedVariety}/>)}
