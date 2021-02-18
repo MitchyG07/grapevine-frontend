@@ -79,7 +79,10 @@ sendWine = (id) => {
     headers: {Authorization:  `Bearer ${token}`}}
         fetch(`http://localhost:3000/wines/${id}`, configW)
         .then(resp =>  resp.json())
-        .then(wine => this.props.selectedWine(wine))
+        .then(wine => {
+            console.log(wine)
+            this.props.selectedWine(wine)
+        })
 }
 
 render() {

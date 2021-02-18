@@ -28,7 +28,8 @@ class Wine extends React.Component {
    setUser = (user) => {
     this.setState({
        userWines: user.wines,
-       userFavorites: user.favorites
+       userFavorites: user.favorites,
+       reviews: this.props.wine.reviews ? this.props.wine.reviews : []
         })
         this.checkFavorite()
     }
@@ -52,30 +53,15 @@ class Wine extends React.Component {
                       Authorization: `Bearer ${token}`},
             body: JSON.stringify({
                 content: e.target.children[0].value,
-                user_id: this.props.user.id })    } 
+                user_id: this.props.user.id, 
+                wine_id: this.props.wine.id })} 
             fetch('http://localhost:3000/reviews', config) 
                .then(resp => resp.json())
-               .then(review  => {this.postReviewedWine(review) })
+               .then(review  =>  this.setState({
+                   reviews: [...this.state.reviews, review]
+               }))
              }
 
-              
-    postReviewedWine = (rw) => {
-        this.setState(prevState => {
-           return{ reviews: prevState.reviews.push(rw)  }
-        })
-        
-        const token = localStorage.token
-        const reviewWineBody = { method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-             Authorization: `Bearer ${token}`
-        },  body: JSON.stringify({
-            wine_id: this.props.wine.id,
-            review_id: rw.id }) }
-        fetch('http://localhost:3000/reviewed_wines', reviewWineBody)
-            .then(resp => resp.json())
-            .then(rwd => console.log(rwd))            
-    }
 
     handleClick = () => {
         this.setState({
@@ -127,7 +113,8 @@ class Wine extends React.Component {
             <textarea exact='true' className='form-control w-75' name='text' rows='3'></textarea>
             <input type='submit' value="Submit"></input>
         </form>
-        <ul>{this.props.wine.reviews}</ul>
+        <ul>
+        </ul>
         </div>
     ) }
 }
