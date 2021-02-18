@@ -18,14 +18,41 @@
   color: black;
 }
 
+.white{
+  color: white;
+}
+
 .left{
   position: absolute;
   left: 25px;
 }
 
+.user-review{
+  position: absolute;
+  right: 25px;
+}
+
+.favorites{
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+}
+
+.visible {
+  visibility: visible;
+}
+.invisible {
+  visibility: hidden;
+}
+
+.padding {
+  margin-left: .25;
+  margin-right: .25;
+}
+
 .color-nav{
   background-color: rgb(148, 110, 192);
   font-family: 'Pacifico', cursive; 
+  font-size: 25px;
 }
 
 .App-header {

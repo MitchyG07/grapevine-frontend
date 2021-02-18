@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import Variety from '../components/Variety'
 import { WorldMap } from "react-svg-worldmap"
 import Country from '../components/Country'
+import {Table, ListGroup, Container, Row, Col, Button, Form} from 'react-bootstrap'
 
 const URLS = [
     "http://localhost:3000/varietal_count",
@@ -92,24 +93,28 @@ class VarietyContainer extends Component {
         const {getCountry, getVariety} = this.props
         
         return(
-            <div>
-                <div className="worldMap">
-                    <WorldMap color="blue" title="GrapeVine Map" value-suffix="wines" size="xxl" data={this.state.data} /> 
-                </div>
-                <div className="redColumn">
+           
+            <Container fluid='true'>
+                <Row> 
+                <Col className="redColumn">
                     {redVarieties.map(red => <Variety red={red} getVariety={getVariety} selectedVariety={this.selectedVariety}/>)}
-                </div>
-                <div>
+                </Col>
+                <Col xs={7} className="worldMap">
+                    <WorldMap color="blue" title="GrapeVine Map" value-suffix="wines" size="responsive" data={this.state.data} /> 
+                </Col>
+                <Col>
                     {whiteVarieties.map(white => <Variety white={white} selectedVariety={this.selectedVariety}/>)}
-                </div>
-                <div>
+                </Col>
+                </Row>
+                <Row>
                     {
                     country_data[1]
                     ? country_data.map(country => <Country country={country} getCountry={getCountry} /> ) 
                     : <div>Country map </div>
                     }
-                </div>
-            </div>
+                </Row>
+               
+            </Container>
         )
     }
 }     

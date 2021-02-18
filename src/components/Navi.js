@@ -18,8 +18,8 @@ const Navi = ({ user, handleLogout }) => {
             </Nav>
         ) : (
              <Nav className='mr-auto' > 
-              <Nav.Link href="/home" exact>Home</Nav.Link>
-              <Nav.Link href="/variety"> All Varieties</Nav.Link>
+              <Nav.Link href="/variety"> Home</Nav.Link>
+              <Nav.Link href="/user"> Profile</Nav.Link>
               <Button variant="outline-light" onClick={handleLogout}>Logout</Button>
             </Nav> 
         )}

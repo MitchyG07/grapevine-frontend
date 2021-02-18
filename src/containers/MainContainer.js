@@ -108,7 +108,6 @@ class MainContainer extends React.Component {
     };
 
     changeSelected = (wine) => {
- 
       this.setState({
             selectedWine: wine
         })
@@ -150,7 +149,7 @@ class MainContainer extends React.Component {
       return <VarietyContainer getCountry={this.country} getVariety={this.variety}/> }} />
       {/* getVariety={this.variety} */}
       <Route exact path="/user" render={() => { 
-        return <UserContainer   user={this.state.user} /> }} />
+        return <UserContainer   selectedWine={this.changeSelected} user={this.state.user} /> }} />
     </div>
    )
   } 
