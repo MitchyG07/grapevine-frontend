@@ -1,7 +1,7 @@
 import React, {Fragment, Component, useState} from 'react'
 import RegionalVariety from '../components/RegionalVariety.js'
-import {Button, Container, Row, Image} from "react-bootstrap"
-// import Grape from './grape.png'
+import {Button, Container, Row, Image,  Col} from "react-bootstrap"
+import grape from '../images/grape1.jpg'
 
 class RegionalVarietyContainer extends Component {
 
@@ -46,7 +46,7 @@ class RegionalVarietyContainer extends Component {
         // debugger
         console.log(e.target.children[0].value)  
         this.setState(prevState => { 
-              return { data: prevState.data.filter(wines => wines.title.includes(e.target.children[0].value)) } 
+              return {data: prevState.data.filter(wines => wines.title.includes(e.target.children[0].value)) } 
          } )  
       }
     
@@ -64,13 +64,19 @@ class RegionalVarietyContainer extends Component {
                 <Button variant='outline-dark' onClick={() => this.getVariety()}>Reset</Button>
                 </form>
                 </Row>
-                {/* <Grape></Grape> */}
-                {this.state.data.slice(currentPage * pageSize, (currentPage + 1) * pageSize)
-                .map(rv  => <RegionalVariety wine={rv} ten={this.showTen} key={rv.id} selectedWine={this.props.selectedWine}  />) }
-                <Button variant='outline-dark' onClick={() => this.previousTen()}>Previous Page</Button>  
-                <Button variant='outline-dark' onClick={() => this.showTen()}>Next Page</Button><br></br>
-                <a className='left body'>Page: {this.state.currentPage + 1}</a>  
-              
+                <Row> 
+               
+                <Col> 
+                    {this.state.data.slice(currentPage * pageSize, (currentPage + 1) * pageSize)
+                    .map(rv  => <RegionalVariety wine={rv} ten={this.showTen} key={rv.id} selectedWine={this.props.selectedWine}  />) }
+                    <Button variant='outline-dark' onClick={() => this.previousTen()}>Previous Page</Button>  
+                    <Button variant='outline-dark' onClick={() => this.showTen()}>Next Page</Button><br></br>
+                    <a className='left body'>Page: {this.state.currentPage + 1}</a>  
+                </Col>
+                <Col> 
+                    <Image className='grape-img img-rounded'src={grape} alt='grape' roundedCircle thumbnail/>
+                </Col>
+                </Row>
             </Container>
      
      

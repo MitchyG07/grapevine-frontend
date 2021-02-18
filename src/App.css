@@ -21,6 +21,16 @@
 .white{
   color: white;
 }
+/* 
+.user-container {
+  background-image: url('../public/grape.png');
+} */
+
+.grape-img{
+ width: 70%;
+ position: relative;
+ top: 100px;
+}
 
 .regional-container{
   
@@ -32,6 +42,11 @@
 .left{
   position: absolute;
   left: 25px;
+}
+
+.edit-icon{
+  margin: 10px;
+  
 }
 
 .user-review{

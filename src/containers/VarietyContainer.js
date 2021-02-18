@@ -101,16 +101,16 @@ class VarietyContainer extends Component {
         const {getCountry, getVariety} = this.props
         
         return(
-            <main className="background">
-            <Container fluid='true'>
-            <Row> 
-            <Col className="redColumn">
+            // <main className="background">
+            <Container className="background" fluid='true'>
+            <Row className='m-2'> 
+            <Col className="redColumn" align='center'>
                 {redVarieties.map(red => <Variety red={red} getVarietyCount={this.getVarietyCount} getVariety={getVariety} />)}
             </Col>
-            <Col xs={7} className="worldMap">
-                <WorldMap color="blue" backgroundColor="" value-suffix="wines" size="xxl" data={this.state.wines} /> 
+            <Col xs={6} className="worldMap" align='center'>
+                <WorldMap color="blue" backgroundColor="" value-suffix="wines" size="responsive" data={this.state.wines} /> 
             </Col>
-            <Col>
+            <Col align='center'>
                 {whiteVarieties.map(white => <Variety white={white} getVarietyCount={this.getVarietyCount} getVariety={getVariety}/>)}
             </Col>
             </Row>
@@ -118,11 +118,11 @@ class VarietyContainer extends Component {
                 {
                 country_data[1]
                 ? country_data.map(country => <Country country={country} getCountry={getCountry} /> ) 
-                : <div>Country map </div>
+                : <div></div>
                 }
             </Row>
         </Container>
-        </main> 
+        // </main> 
         )
     }
 }     

@@ -1,6 +1,15 @@
 import React, {Component} from 'react'
-import {Table, ListGroup, Container, Row, Col, Button, Form} from 'react-bootstrap'
+import {Table, ListGroup, Container, Row, Col, Button, Image} from 'react-bootstrap'
 import { Link } from 'react-router-dom';
+import grape from '../images/grape.png'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUserEdit } from '@fortawesome/free-solid-svg-icons'
+
+// var grapeVar = {
+//     backgroundImage: `url(${grape})`
+
+// }
+
 
 class UserContainer extends Component {
 
@@ -104,6 +113,7 @@ render() {
        </Row>
        <Row className='pb-2 pt-2'>
             <Button variant='outline-dark' onClick={() => this.toggleBio()}>{this.state.visible ? 'Edit Bio' : 'Cancel'}</Button>
+            <FontAwesomeIcon  className='edit-icon' icon={faUserEdit} size='lg' />
        </Row>
                
              <Row> 
@@ -124,6 +134,7 @@ render() {
                 <ul className='user-review'> 
                  {this.state.reviews.map(review => <li >{review.content} -- {review.wine}</li>)} 
                 </ul>
+                {/* <Image src={grape} alt='grape' /> */}
              </Col>
             </Row>
             <Row> 
