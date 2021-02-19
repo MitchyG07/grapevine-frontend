@@ -8,6 +8,7 @@ import RegionalVarietyContainer from '../containers/RegionalVarietyContainer'
 import VarietyContainer from './VarietyContainer'
 import UserContainer from './UserContainer'
 import {Jumbotron} from 'react-bootstrap'
+// import { Redirect } from "react-router-dom";
 
 
 const API = "http://localhost:3000";
@@ -63,7 +64,8 @@ class MainContainer extends React.Component {
         });
         localStorage.setItem("token", token);
         localStorage.setItem("id", this.state.user.id)
-        this.props.history.push("/")
+        this.props.history.push("/variety")
+    
       } else if (data.error) {
         this.setState({
           error: data.error
@@ -106,6 +108,7 @@ class MainContainer extends React.Component {
     handleLogout = () => {
       localStorage.clear();
       this.setState({ user: {} });
+      this.props.history.push("/")
     };
 
     changeSelected = (wine) => {

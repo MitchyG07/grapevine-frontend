@@ -27,7 +27,7 @@ class VarietyContainer extends Component {
         'Riesling',
         'Pinot Noir',
         'Semillon',
-        'Gewurztraminer',
+        'Carineña',
         'Chenin Blanc',
         'Gruner Veltliner',
         'Torrontes'

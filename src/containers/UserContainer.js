@@ -107,7 +107,7 @@ render() {
            <form  className='form-group p-2' onSubmit={(e) => this.handleSubmit(e)}> 
     
              <textarea className='form-control'></textarea><br></br>
-             <input type='submit' value='Submit'></input>
+             <Button variant='outline-dark' type='submit' value='Submit'>Submit</Button>
          </form>
          }           
        </Row>
@@ -121,7 +121,7 @@ render() {
                     <Table striped bordered hover variant="dark" className='w-auto favorites'>
                         <thead >
                           <th >#</th>
-                          <th>Wine Title</th>
+                          <th>Favorite Wines</th>
                         </thead>
                         <tbody > 
                             {this.state.favorites.map((faves, i) => <tr> <td>{i + 1})</td> 

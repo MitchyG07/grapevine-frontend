@@ -46,22 +46,25 @@ class RegionalVarietyContainer extends Component {
         // debugger
         console.log(e.target.children[0].value)  
         this.setState(prevState => { 
-              return {data: prevState.data.filter(wines => wines.title.includes(e.target.children[0].value)) } 
-         } )  
+              return {data: prevState.data.filter(wines => wines.title.includes(e.target.children[0].value))} 
+         
+         }  )
+         
       }
-    
+
+     
 
     render(){ 
         const {pageSize, currentPage} = this.state
         return(
           
-            <Container className='regional-container' fluid='true'>
+            <Container className='regional-container body' fluid='true'>
                 <Row> 
                 <form onSubmit={(e) => this.filterWines(e)}> 
                 <input name='filter-wine' placeholder='...search'></input>
-                <Button className='p-2' type='submit' value='Submit' variant='outline-dark'>Search</Button>
+                <Button className='p-1 m-2' type='submit' value='Submit' variant='outline-dark'>Search</Button>
           
-                <Button variant='outline-dark' onClick={() => this.getVariety()}>Reset</Button>
+                <Button className='p-1 m-2' variant='outline-dark' onClick={() => this.getVariety()}>Reset</Button>
                 </form>
                 </Row>
                 <Row> 
@@ -69,8 +72,8 @@ class RegionalVarietyContainer extends Component {
                 <Col> 
                     {this.state.data.slice(currentPage * pageSize, (currentPage + 1) * pageSize)
                     .map(rv  => <RegionalVariety wine={rv} ten={this.showTen} key={rv.id} selectedWine={this.props.selectedWine}  />) }
-                    <Button variant='outline-dark' onClick={() => this.previousTen()}>Previous Page</Button>  
-                    <Button variant='outline-dark' onClick={() => this.showTen()}>Next Page</Button><br></br>
+                    <Button  variant='outline-dark' onClick={() => this.previousTen()}>Previous Page</Button>  
+                    <Button className='m-2' variant='outline-dark' onClick={() => this.showTen()}>Next Page</Button><br></br>
                     <a className='left body'>Page: {this.state.currentPage + 1}</a>  
                 </Col>
                 <Col> 

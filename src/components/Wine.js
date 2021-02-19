@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
-import {Forms} from 'react-bootstrap'
+import {Forms, Container, Button} from 'react-bootstrap'
 import {BsStarFill, BsStar} from 'react-icons/bs'
+import { Link } from 'react-router-dom';
 
 class Wine extends React.Component {
     
@@ -103,19 +104,20 @@ class Wine extends React.Component {
     render() { 
         console.log(this.state)
     return(
-        <div className='body'>
+        <Container className='body'>
         <h1>Title: {this.props.wine.title}</h1>
         <h4>Description: {this.props.wine.description}</h4>
         <h4>Country: {this.props.wine.country}</h4>
         <h4>Rating: {this.props.wine.points} </h4>
-        <p>Add to favorites: {this.state.favorite ? <BsStarFill onClick={this.handleClick}/> : <BsStar onClick={this.handleClick} />}</p> 
+        <p>Add to favorites:  <Link className='body'>  {this.state.favorite ?  <BsStarFill onClick={this.handleClick}/>  : <BsStar onClick={this.handleClick} />}  </Link>  </p> 
+        <h4>Leave a Review:</h4>
         <form exact='true' className='form-group' onSubmit={(e) => this.postReview(e)}>
-            <textarea exact='true' className='form-control w-75' name='text' rows='3'></textarea>
-            <input type='submit' value="Submit"></input>
+            <textarea exact='true' className='form-control w-75 border border-dark' name='text' rows='3'></textarea>
+            <Button  className='mt-2 mb-2' variant='outline-dark' type='submit' value="Submit">Submit</Button>
         </form>
         <ul>
         </ul>
-        </div>
+        </Container>
     ) }
 }
 
