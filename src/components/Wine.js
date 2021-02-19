@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {Forms, Container, Button} from 'react-bootstrap'
 import {BsStarFill, BsStar} from 'react-icons/bs'
 import { Link } from 'react-router-dom';
+import Review from './Review'
 
 class Wine extends React.Component {
     
@@ -10,7 +11,8 @@ class Wine extends React.Component {
        favorite: false,
        userWines: [],
        userFavorites: [],
-       id: 0
+       id: 0,
+       blank: ''
    }
 
    componentDidMount(){
@@ -61,7 +63,8 @@ class Wine extends React.Component {
                .then(review  =>  this.setState({
                    reviews: [...this.state.reviews, review]
                }))
-             }
+               e.target.children[0].value = ''
+    }
 
 
     handleClick = () => {
@@ -106,16 +109,28 @@ class Wine extends React.Component {
     return(
         <Container className='body'>
         <h1>Title: {this.props.wine.title}</h1>
-        <h4>Description: {this.props.wine.description}</h4>
         <h4>Country: {this.props.wine.country}</h4>
         <h4>Rating: {this.props.wine.points} </h4>
         <p>Add to favorites:  <Link className='body'>  {this.state.favorite ?  <BsStarFill onClick={this.handleClick}/>  : <BsStar onClick={this.handleClick} />}  </Link>  </p> 
-        <h4>Leave a Review:</h4>
+        {/* <h4>Leave a Review:</h4> */}
+        <h5>Description: {this.props.wine.description}</h5>
+        {/* <h5>Add to your favorites: {this.state.favorite ? <BsStarFill onClick={this.handleClick}/> : <BsStar onClick={this.handleClick} />}</h5>  */}
+        <p>Submit your Review:</p>
         <form exact='true' className='form-group' onSubmit={(e) => this.postReview(e)}>
             <textarea exact='true' className='form-control w-75 border border-dark' name='text' rows='3'></textarea>
             <Button  className='mt-2 mb-2' variant='outline-dark' type='submit' value="Submit">Submit</Button>
         </form>
         <ul>
+            {
+                this.state.reviews[0]
+                ? <h4>Critics Say:</h4>
+                : <div></div> 
+            }
+            {
+                this.state.reviews[0]
+                ? this.state.reviews.map(review => <Review review={review} />)
+                : <div></div> 
+            }
         </ul>
         </Container>
     ) }
