@@ -36,7 +36,7 @@ class RegionalVarietyContainer extends Component {
         })} 
         
       previousTen =  () => {
-        if (this.state.currentPage > 1) {
+        if (this.state.currentPage > 0) {
         this.setState(prevState => {
             return {currentPage: prevState.currentPage - 1}
         })} }

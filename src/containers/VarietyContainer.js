@@ -99,13 +99,15 @@ class VarietyContainer extends Component {
         return(
             <Container className="background" fluid='true'>
             <Row className='m-2'> 
-            <Col className="redColumn" align='center'>
+            <Col align='center'>
+            <h4 className='body mb-5'>Red Varietals</h4>
                 {redVarieties.map(red => <Variety red={red} getVarietyCount={this.getVarietyCount} getVariety={getVariety} selectedVariety={this.selectedVariety}/>)}
             </Col>
             <Col xs={6} className="worldMap" align='center'>
                 <WorldMap color="blue" backgroundColor="" value-suffix="wines" size="responsive" data={this.state.wines} /> 
             </Col>
             <Col align='center'>
+            <h4 className='body mb-3'>White Varietals</h4>
                 {whiteVarieties.map(white => <Variety white={white} getVarietyCount={this.getVarietyCount} getVariety={getVariety} selectedVariety={this.selectedVariety}/>)}
             </Col>
             </Row>
