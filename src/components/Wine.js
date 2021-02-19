@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {Forms} from 'react-bootstrap'
 import {BsStarFill, BsStar} from 'react-icons/bs'
+import Review from './Review'
 
 class Wine extends React.Component {
     
@@ -9,7 +10,8 @@ class Wine extends React.Component {
        favorite: false,
        userWines: [],
        userFavorites: [],
-       id: 0
+       id: 0,
+       blank: ''
    }
 
    componentDidMount(){
@@ -60,7 +62,8 @@ class Wine extends React.Component {
                .then(review  =>  this.setState({
                    reviews: [...this.state.reviews, review]
                }))
-             }
+               e.target.children[0].value = ''
+    }
 
 
     handleClick = () => {
@@ -105,15 +108,26 @@ class Wine extends React.Component {
     return(
         <div className='body'>
         <h1>Title: {this.props.wine.title}</h1>
-        <h4>Description: {this.props.wine.description}</h4>
         <h4>Country: {this.props.wine.country}</h4>
         <h4>Rating: {this.props.wine.points} </h4>
-        <p>Add to favorites: {this.state.favorite ? <BsStarFill onClick={this.handleClick}/> : <BsStar onClick={this.handleClick} />}</p> 
+        <h5>Description: {this.props.wine.description}</h5>
+        <h5>Add to your favorites: {this.state.favorite ? <BsStarFill onClick={this.handleClick}/> : <BsStar onClick={this.handleClick} />}</h5> 
+        <p>Submit your Review:</p>
         <form exact='true' className='form-group' onSubmit={(e) => this.postReview(e)}>
             <textarea exact='true' className='form-control w-75' name='text' rows='3'></textarea>
             <input type='submit' value="Submit"></input>
         </form>
         <ul>
+            {
+                this.state.reviews[0]
+                ? <h4>Critics Say:</h4>
+                : <div></div> 
+            }
+            {
+                this.state.reviews[0]
+                ? this.state.reviews.map(review => <Review review={review} />)
+                : <div></div> 
+            }
         </ul>
         </div>
     ) }

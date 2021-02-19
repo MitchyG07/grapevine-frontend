@@ -95,7 +95,7 @@
   justify-content: center;
 }
 .background {
-  background: rgb(132,206,235);
+  background-color: rgb(132,206,235);
   background: linear-gradient(90deg, rgba(132,206,235,1) 0%, rgba(90,185,234,1) 35%, rgba(136,96,208,1) 100%);
 }
 
@@ -111,3 +111,4 @@
     transform: rotate(360deg);
   }
 }
+
